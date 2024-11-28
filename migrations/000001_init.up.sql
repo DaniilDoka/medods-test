@@ -5,7 +5,7 @@ create table "user" (
 );
 
 create table token (
-    user_id UUID references "user" (id) not null unique,
+    user_id UUID references "user" (id) unique,
     refresh_token TEXT unique not null,
     exp TIMESTAMP not null
 );
