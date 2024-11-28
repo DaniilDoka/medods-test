@@ -7,7 +7,7 @@ docker compose build
 
 docker compose up
 
-ТЕСТОВЫЙ GUID ЮЗЕРА 8ca358a1-0ed5-4a05-908d-6620c82135d7
+GUID ТЕСТОВОГО ЮЗЕРА 8ca358a1-0ed5-4a05-908d-6620c82135d7
 
 чтоб получить пару токенов, надо на ручку signin послать запрос
 
