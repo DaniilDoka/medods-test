@@ -11,7 +11,7 @@ docker compose up
 ```
 GUID ТЕСТОВОГО ЮЗЕРА 8ca358a1-0ed5-4a05-908d-6620c82135d7
 ```
-чтоб получить пару токенов, надо на метод signin послать запрос
+чтоб получить пару токенов, надо на метод signin послать GET запрос 
 ```
 http://localhost:6969/user/signin?GUID=8ca358a1-0ed5-4a05-908d-6620c82135d7
 ```
@@ -25,7 +25,7 @@ http://localhost:6969/user/signin?GUID=8ca358a1-0ed5-4a05-908d-6620c82135d7
 
 ![image](https://github.com/user-attachments/assets/cab36ce4-e5d1-4c58-97a5-be76097bf470)
 # refresh
-для рефреша надо взять refresh и указать как параметр в юрле 
+для рефреша надо взять refresh и указать как параметр в юрле в GET методе /refresh
 ```
 http://localhost:6969/user/refresh?token=HERE <-----
 ```
