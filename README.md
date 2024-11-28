@@ -1,5 +1,6 @@
 # medods-test
 Часть сервиса аутентификации
+
 для старта:
 
 docker compose build
