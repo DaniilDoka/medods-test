@@ -11,7 +11,8 @@ type Config struct {
 		Port int    `env:"SERVER_PORT"`
 		Key  string `env:"KEY"`
 	}
-	Db pg.PgCredentials
+	MailerAddress string `env:"MAILER_ADDRESS"`
+	Db            pg.PgCredentials
 }
 
 func InitConfig() (*Config, error) {

@@ -29,11 +29,11 @@ func (h *handlers) Signin() fiber.Handler {
 		ip := c.Get("X-Forwarded-For", "")
 		guid := c.Query("GUID", "")
 		if ip == "" {
-			return c.Status(fiber.StatusNonAuthoritativeInformation).SendString("Invalid ip")
+			return c.Status(fiber.StatusUnauthorized).SendString("Invalid ip")
 		}
 
 		if guid == "" {
-			return c.Status(fiber.StatusNonAuthoritativeInformation).SendString("Invalid GUID")
+			return c.Status(fiber.StatusUnauthorized).SendString("Invalid GUID")
 		}
 
 		resp, err := h.usecase.Signin(&auth_models.SigninParams{
@@ -51,6 +51,22 @@ func (h *handlers) Signin() fiber.Handler {
 
 func (h *handlers) Refresh() fiber.Handler {
 	return func(c fiber.Ctx) error {
-		return nil
+		refresh := c.Query("token", "")
+		if refresh == "" {
+			return c.Status(fiber.StatusUnauthorized).SendString("Invalid refresh")
+		}
+		ip := c.Get("X-Forwarded-For", "")
+		if ip == "" {
+			return c.Status(fiber.StatusUnauthorized).SendString("Invalid ip")
+		}
+		resp, err := h.usecase.Refresh(&auth_models.RefreshParams{
+			Refresh: refresh,
+			UserIp:  ip,
+		})
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
+		}
+
+		return c.JSON(resp)
 	}
 }

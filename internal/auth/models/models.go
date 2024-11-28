@@ -1,8 +1,8 @@
 package auth_models
 
 type SigninParams struct {
-	Guid   string `json:"guid"`
-	UserIp string `json:"ip"`
+	Guid   string
+	UserIp string
 }
 
 type SigninResponse struct {
@@ -11,7 +11,8 @@ type SigninResponse struct {
 }
 
 type RefreshParams struct {
-	Refresh string `json:"refresh"`
+	Refresh string
+	UserIp  string
 }
 
 type RefreshResponse struct {
