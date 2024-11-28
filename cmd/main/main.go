@@ -14,7 +14,6 @@ func main() {
 	if err != nil {
 		logger.PanicError(err)
 	}
-
 	pgConn, err := pg.Open(&cfg.Db)
 	if err != nil {
 		logger.PanicError(err)

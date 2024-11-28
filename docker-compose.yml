@@ -1,0 +1,54 @@
+services:
+  mailer:
+    hostname: mailer
+    restart: always
+    networks:
+      - coolnet
+    ports: 
+      - 6666:6666
+    build:
+      context: .
+      dockerfile: ./mailer.Dockerfile
+  auth:
+    restart: always
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - coolnet
+    ports: 
+      - 6969:6969
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: "./config/.env"
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - coolnet
+    volumes:
+      - ./migrations:/migrations
+    command: ["-path", "/migrations", "-database", "postgres://postgres:pass1234@database:5432/medods?sslmode=disable", "up", "3"]
+  database:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "medods"]
+      interval: 10s
+      timeout: 60s
+      retries: 6
+    networks:
+      - coolnet
+    ports:
+      - 5432:5432
+    image: postgres:latest
+    hostname: postgres
+    environment:
+      - POSTGRES_PASSWORD=pass1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=medods
+
+networks:
+  coolnet:
+    name: coolnetwork
